@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Geolocation  </title>
+</head>
+<body>
+	<h1> Hello, Lets trace your location </h1>
+    <button onClick="getLocation()"> Get Location </button>
+    <div id="output"></div>
+
+    <script src="http://code.jquery.com/jquery-2.2.4.min.js"> </script>
+    <script>
+    	var x = document.getElementById('output');
+
+    	function getLocation(){
+    		if (navigator.geolocation){
+    			navigator.geolocation.getCurrentPosition(showPosition);
+    		}else{
+    			x.innerHTML = "Browser not Supporting";
+    		}
+    	}
+
+    	 function showPosition(position){
+             // x.innerHTML = "latitude = "+ position.coords.latitude;
+             // x.innerHTML += "<br />"
+             // x.innerHTML += "Longitude = "+position.coords.longitude
+
+              var locAPI = "http://maps.googleapis.com/maps/api/geocode/json?latlng="+position.coords.latitude+","+position.coords.longitude+"&sensor=true";
+
+              $.get({
+              	url : locAPI,
+              	success: function(data) {
+              		console.log(data);
+              	}
+              });
+    	 }
+    </script>
+</body>
+</html>
